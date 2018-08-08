@@ -48,12 +48,15 @@ gulp.task("imageMin", function () {
 
 // 压缩js
 //安装js压缩模块 npm i gulp-uglify --save-dev
+/*
 gulp.task("scriptmin", function () {
     //pipe后面对应的地址就是将前面路径文件拷贝复制到哪里去
     gulp.src(["src/js/*.js", "!src/js/not.js"])
         .pipe(scriptmin())
         .pipe(gulp.dest("dist/js"))
 });
+
+*/
 
 // 转换less
 //安装js压缩模块 npm i gulp-less --save-dev
@@ -64,12 +67,24 @@ gulp.task("gulpless", function () {
         .pipe(gulp.dest("dist/css"))
 });
 
+/*压缩*/
+/*
+gulp.task("taskName",function(){
+    // 把1.js和2.js合并压缩为main.js，输出到dest/js目录下
+    gulp.src("src/js/*.js")
+    .pipe(concat('main.js'))
+    .pipe(gulp.dest('./dest/js'));
+})
+*/
+
+
+
 //代码合并
-//安装 npm i gulp-concat --save-dev
+//安装 npm i gulp-concat --save-dev  //在合并的时候压缩js
 gulp.task("concat", function () {
     gulp.src("src/js/*.js")
         .pipe(concat("main.js"))
-        .pipe(scriptmin()) //在合并的时候压缩js
+        .pipe(scriptmin())
         .pipe(gulp.dest("dist/js"))
 })
 
@@ -82,7 +97,7 @@ gulp.task("watch", function () {
 })
 
 //如果直接执行 gulp 那么就是运行任务名称为‘default’的任务,后面数组代表所需要执行的任务列表
-gulp.task('default', ["copyHtml", "gulpless", "imageMin", "scriptmin"]);
+gulp.task('default', ["copyHtml", "gulpless","concat","imageMin"]);
 
 
 //stream-combiner2模块下面代码可打印gulp报错信息
